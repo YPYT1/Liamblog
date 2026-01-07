@@ -1,0 +1,13 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import AuthApp from '@/components/AuthApp'
+---
+<BaseLayout title="登录/注册" description="账号登录与注册">
+  <section class="mx-auto max-w-4xl px-4 py-10">
+    <h1 class="text-2xl font-semibold">账号中心</h1>
+    <p class="mt-2 text-sm text-slate-600">注册后即可发表评论。</p>
+    <div class="mt-6">
+      <AuthApp client:only="react" />
+    </div>
+  </section>
+</BaseLayout>

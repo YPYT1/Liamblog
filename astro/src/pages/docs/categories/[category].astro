@@ -1,0 +1,26 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { dbAll } from '@/lib/db'
+
+const { category } = Astro.params
+const env = Astro.locals.runtime.env
+const docs = await dbAll(env.DB,
+  'SELECT slug, title, summary, category, published_at FROM docs WHERE status = ? AND category = ? ORDER BY order_index ASC, published_at DESC',
+  ['published', category],
+)
+---
+<BaseLayout title={category} description={`文档分类 ${category}`}>
+  <section class="mx-auto max-w-4xl px-4 py-10">
+    <h1 class="text-2xl font-semibold">{category}</h1>
+    <div class="mt-6 space-y-3">
+      {docs.map((doc) => (
+        <a class="glass-card block p-5" href={`/docs/${doc.slug}`}>
+          <div class="text-base font-medium">{doc.title}</div>
+          {doc.summary && <div class="mt-2 text-sm text-slate-600">{doc.summary}</div>}
+          <div class="mt-2 text-xs text-slate-400">{doc.published_at}</div>
+        </a>
+      ))}
+      {docs.length === 0 && <div class="text-sm text-slate-500">暂无文档</div>}
+    </div>
+  </section>
+</BaseLayout>

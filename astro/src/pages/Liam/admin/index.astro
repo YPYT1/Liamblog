@@ -1,0 +1,7 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import AdminApp from '@/components/AdminApp'
+---
+<BaseLayout title="管理后台" description="内容管理后台">
+  <AdminApp client:only="react" />
+</BaseLayout>

@@ -1,6 +1,8 @@
 # Dependencies
 node_modules
-
+.kiro
+.github/
+.vscode/
 # Production
 /build
 /drafts

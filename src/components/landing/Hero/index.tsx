@@ -5,6 +5,7 @@ import Translate from '@docusaurus/Translate'
 import HeroSvg from './img/hero.svg'
 
 import SocialLinks from '@site/src/components/SocialLinks'
+import FluidBackground from '@site/src/components/FluidBackground'
 import { MovingButton } from '../../magicui/moving-border'
 import styles from './styles.module.css'
 
@@ -49,7 +50,7 @@ function Name() {
         //   e.currentTarget.style.setProperty('--mouse-y', `${bounding.y}px`)
         // }}
       >
-        <Translate id="homepage.hero.name">愧怍</Translate>
+        <Translate id="homepage.hero.name">Liam</Translate>
       </span>
       <span className="ml-1">👋</span>
     </motion.div>
@@ -59,6 +60,11 @@ function Name() {
 export default function Hero() {
   return (
     <motion.div className={styles.hero}>
+      {/* WebGL Fluid Background */}
+      <div className={styles.fluidBg}>
+        <FluidBackground className={styles.fluidCanvas} />
+      </div>
+      
       <div className={styles.intro}>
         <Name />
         <motion.p custom={2} initial="hidden" animate="visible" variants={variants} className="max-lg:px-4">

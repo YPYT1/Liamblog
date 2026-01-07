@@ -5,6 +5,15 @@
   padding: 0;
 }
 
+.fluidBg {
+  @apply absolute inset-0 z-0;
+  pointer-events: none;
+}
+
+.fluidCanvas {
+  @apply w-full h-full;
+}
+
 .intro {
   @apply p-4 pl-16 relative z-10;
 }

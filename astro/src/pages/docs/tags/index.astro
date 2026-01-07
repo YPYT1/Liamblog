@@ -1,0 +1,22 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { dbAll } from '@/lib/db'
+import { parseTags, uniqueSorted } from '@/lib/content'
+
+const env = Astro.locals.runtime.env
+const docs = await dbAll(env.DB, 'SELECT tags FROM docs WHERE status = ?', ['published'])
+const tags = uniqueSorted(docs.flatMap((doc) => parseTags(doc.tags)))
+---
+<BaseLayout title="文档标签" description="文档标签">
+  <section class="mx-auto max-w-4xl px-4 py-10">
+    <h1 class="text-2xl font-semibold">文档标签</h1>
+    <div class="mt-6 flex flex-wrap gap-2">
+      {tags.map((tag) => (
+        <a class="rounded-full bg-black/5 px-3 py-1 text-sm text-slate-600" href={`/docs/tags/${encodeURIComponent(tag)}`}>
+          #{tag}
+        </a>
+      ))}
+      {tags.length === 0 && <div class="text-sm text-slate-500">暂无标签</div>}
+    </div>
+  </section>
+</BaseLayout>

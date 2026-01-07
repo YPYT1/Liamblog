@@ -1,0 +1,57 @@
+---
+import FluidBackground from '@/components/FluidBackground'
+---
+<section class="relative overflow-hidden px-4 pb-16 pt-20">
+  <div class="absolute inset-0 -z-10">
+    <FluidBackground className="h-full w-full opacity-60" client:only="react" />
+  </div>
+  <div class="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[1.2fr_0.8fr]">
+    <div>
+      <div class="reveal text-xs uppercase tracking-[0.4em] text-slate-500">Digital Garden</div>
+      <h1 class="hero-title reveal reveal-delay-1 mt-4 text-4xl leading-tight text-slate-900 md:text-5xl">
+        记录专注、沉静且可持续的技术思考
+      </h1>
+      <p class="reveal reveal-delay-2 mt-4 text-base leading-relaxed text-slate-600">
+        这是一个偏 Notion 风格的个人知识空间。内容简约清晰，结构严谨，随时为灵感、方案与实践留下可追溯的注脚。
+      </p>
+      <div class="reveal reveal-delay-3 mt-8 flex flex-wrap items-center gap-3">
+        <a class="glass-card button-pop px-5 py-2.5 text-sm font-medium text-slate-900" href="/blog">进入博客</a>
+        <a class="button-pop rounded-full border border-black/10 px-5 py-2.5 text-sm text-slate-600 hover:bg-black/5" href="/docs">浏览文档</a>
+      </div>
+      <div class="reveal reveal-delay-3 mt-8 flex flex-wrap gap-6 text-xs text-slate-500">
+        <div class="flex flex-col gap-1">
+          <span class="text-slate-400">更新时间</span>
+          <span>每日迭代 · 慢慢沉淀</span>
+        </div>
+        <div class="flex flex-col gap-1">
+          <span class="text-slate-400">内容方向</span>
+          <span>前端 · 系统 · 工具</span>
+        </div>
+      </div>
+    </div>
+    <div class="relative">
+      <div class="glass-card float-slow p-6">
+        <div class="flex items-center justify-between text-xs text-slate-400">
+          <span>Focus</span>
+          <span>2026</span>
+        </div>
+        <div class="mt-6 space-y-4">
+          <div class="rounded-2xl border border-black/5 bg-white/70 p-4">
+            <div class="text-xs text-slate-400">今日想法</div>
+            <div class="mt-2 text-sm text-slate-700">把复杂系统讲清楚，是一种温柔的工程能力。</div>
+          </div>
+          <div class="rounded-2xl border border-black/5 bg-white/70 p-4">
+            <div class="text-xs text-slate-400">最新文章</div>
+            <div class="mt-2 text-sm text-slate-700">等待你写下第一篇故事。</div>
+          </div>
+        </div>
+        <div class="mt-6 flex items-center justify-between text-xs text-slate-400">
+          <span>沉浸式阅读体验</span>
+          <span class="inline-flex items-center gap-1 rounded-full bg-black/5 px-3 py-1">Calm UI</span>
+        </div>
+      </div>
+      <div class="float-medium absolute -right-6 -top-6 h-20 w-20 rounded-full border border-black/10 bg-white/60 backdrop-blur" />
+      <div class="float-medium absolute -bottom-6 left-8 h-14 w-14 rounded-full border border-black/10 bg-white/60 backdrop-blur" />
+    </div>
+  </div>
+</section>

@@ -1,0 +1,37 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+
+const projects = [
+  {
+    title: '个人知识库',
+    description: '整理技术笔记与方案，追求简约可读的知识沉淀体验。',
+    link: '#',
+    status: '进行中',
+  },
+  {
+    title: '工具集合集',
+    description: '面向开发者的小工具集合，减少重复劳动。',
+    link: '#',
+    status: '规划中',
+  },
+]
+---
+<BaseLayout title="项目" description="项目展示">
+  <section class="mx-auto max-w-6xl px-4 py-10">
+    <h1 class="text-2xl font-semibold">项目</h1>
+    <p class="mt-2 text-sm text-slate-600">展示我在不同领域的实践与探索。</p>
+
+    <div class="mt-8 grid gap-4 md:grid-cols-2">
+      {projects.map((project) => (
+        <div class="glass-card p-6">
+          <div class="flex items-center justify-between">
+            <h2 class="text-base font-semibold">{project.title}</h2>
+            <span class="text-xs text-slate-400">{project.status}</span>
+          </div>
+          <p class="mt-3 text-sm text-slate-600">{project.description}</p>
+          <a class="mt-4 inline-flex text-sm text-slate-700 underline" href={project.link}>查看详情</a>
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

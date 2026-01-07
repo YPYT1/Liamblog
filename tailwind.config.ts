@@ -17,19 +17,36 @@ const twConfig: Config = {
         link: 'var(--ifm-link-color)',
         primary: 'var(--ifm-color-primary)',
         border: 'var(--ifm-border-color)',
+        // Liquid Glass Colors
+        lg: {
+          primary: '#6366F1',
+          secondary: '#8B5CF6',
+          accent: '#EC4899',
+          highlight: '#06B6D4',
+        },
       },
       fontFamily: {
         misans: ['misans'],
       },
       borderRadius: {
         card: 'var(--ifm-card-border-radius)',
+        'lg-sm': '0.5rem',
+        'lg-md': '0.75rem',
+        'lg-lg': '1rem',
+        'lg-xl': '1.5rem',
       },
       boxShadow: {
         blog: 'var(--blog-item-shadow)',
+        glass: '0 4px 30px rgba(0, 0, 0, 0.1)',
+        'glass-dark': '0 4px 30px rgba(0, 0, 0, 0.3)',
+      },
+      backdropBlur: {
+        glass: '12px',
       },
       animation: {
         'marquee': 'marquee var(--duration) linear infinite',
         'marquee-vertical': 'marquee-vertical var(--duration) linear infinite',
+        'fluid': 'fluid 20s ease infinite',
       },
       keyframes: {
         'marquee': {
@@ -40,6 +57,12 @@ const twConfig: Config = {
           from: { transform: 'translateY(0)' },
           to: { transform: 'translateY(calc(-100% - var(--gap)))' },
         },
+        'fluid': {
+          '0%, 100%': { transform: 'translate(0, 0) scale(1)' },
+          '25%': { transform: 'translate(10px, -10px) scale(1.05)' },
+          '50%': { transform: 'translate(-5px, 15px) scale(0.95)' },
+          '75%': { transform: 'translate(-15px, -5px) scale(1.02)' },
+        },
       },
     },
   },
@@ -48,7 +71,7 @@ const twConfig: Config = {
   },
   plugins: [
     require('@tailwindcss/typography'),
-    plugin(({ matchUtilities, theme }) => {
+    plugin(({ matchUtilities, theme, addUtilities }) => {
       matchUtilities(
         {
           'bg-grid': value => ({
@@ -62,6 +85,23 @@ const twConfig: Config = {
           type: 'color',
         },
       )
+      // Glass effect utilities
+      addUtilities({
+        '.glass': {
+          'background': 'var(--glass-bg)',
+          'backdrop-filter': 'blur(var(--glass-blur))',
+          '-webkit-backdrop-filter': 'blur(var(--glass-blur))',
+          'border': '1px solid var(--glass-border)',
+        },
+        '.glass-card': {
+          'background': 'var(--glass-bg)',
+          'backdrop-filter': 'blur(var(--glass-blur))',
+          '-webkit-backdrop-filter': 'blur(var(--glass-blur))',
+          'border': '1px solid var(--glass-border)',
+          'border-radius': '0.75rem',
+          'box-shadow': '0 4px 30px rgba(0, 0, 0, 0.1)',
+        },
+      })
     }),
     addVariablesForColors,
   ],

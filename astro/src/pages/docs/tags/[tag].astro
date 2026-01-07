@@ -1,0 +1,28 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { dbAll } from '@/lib/db'
+import { parseTags } from '@/lib/content'
+
+const { tag } = Astro.params
+const env = Astro.locals.runtime.env
+const docs = await dbAll(env.DB,
+  'SELECT slug, title, summary, tags, published_at FROM docs WHERE status = ? ORDER BY order_index ASC, published_at DESC',
+  ['published'],
+)
+const filtered = docs.filter((doc) => parseTags(doc.tags).includes(tag))
+---
+<BaseLayout title={`#${tag}`} description={`文档标签 ${tag}`}>
+  <section class="mx-auto max-w-4xl px-4 py-10">
+    <h1 class="text-2xl font-semibold">#{tag}</h1>
+    <div class="mt-6 space-y-3">
+      {filtered.map((doc) => (
+        <a class="glass-card block p-5" href={`/docs/${doc.slug}`}>
+          <div class="text-base font-medium">{doc.title}</div>
+          {doc.summary && <div class="mt-2 text-sm text-slate-600">{doc.summary}</div>}
+          <div class="mt-2 text-xs text-slate-400">{doc.published_at}</div>
+        </a>
+      ))}
+      {filtered.length === 0 && <div class="text-sm text-slate-500">暂无文档</div>}
+    </div>
+  </section>
+</BaseLayout>

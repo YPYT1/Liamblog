@@ -1,0 +1,11 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Comments from '@/components/Comments'
+---
+<BaseLayout title="留言箱" description="访客留言">
+  <section class="mx-auto max-w-4xl px-4 py-10">
+    <h1 class="text-2xl font-semibold">留言箱</h1>
+    <p class="mt-2 text-sm text-slate-600">欢迎留下想法、建议或一句友好的问候。</p>
+    <Comments targetType="guestbook" targetId="main" client:only="react" />
+  </section>
+</BaseLayout>

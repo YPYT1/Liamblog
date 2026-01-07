@@ -107,7 +107,12 @@ export const Card = ({
   return (
     <div
       className={cn(
-        'relative z-20 h-full w-full overflow-hidden rounded-lg border border-transparent bg-background p-4 group-hover:border-slate-700 dark:border-white/[0.2]',
+        'relative z-20 h-full w-full overflow-hidden rounded-lg p-4',
+        'bg-[var(--glass-bg)] backdrop-blur-[12px]',
+        'border border-[var(--glass-border)]',
+        'shadow-[0_4px_30px_rgba(0,0,0,0.1)]',
+        'transition-shadow duration-200',
+        'group-hover:shadow-lg',
         className,
       )}
     >

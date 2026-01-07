@@ -1,0 +1,22 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { dbAll } from '@/lib/db'
+import { uniqueSorted } from '@/lib/content'
+
+const env = Astro.locals.runtime.env
+const docs = await dbAll(env.DB, 'SELECT category FROM docs WHERE status = ? AND category IS NOT NULL', ['published'])
+const categories = uniqueSorted(docs.map((doc) => doc.category).filter(Boolean))
+---
+<BaseLayout title="文档分类" description="文档分类">
+  <section class="mx-auto max-w-4xl px-4 py-10">
+    <h1 class="text-2xl font-semibold">文档分类</h1>
+    <div class="mt-6 flex flex-wrap gap-2">
+      {categories.map((category) => (
+        <a class="rounded-full bg-black/5 px-3 py-1 text-sm text-slate-600" href={`/docs/categories/${encodeURIComponent(category)}`}>
+          {category}
+        </a>
+      ))}
+      {categories.length === 0 && <div class="text-sm text-slate-500">暂无分类</div>}
+    </div>
+  </section>
+</BaseLayout>

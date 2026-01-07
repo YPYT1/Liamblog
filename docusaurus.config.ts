@@ -1,6 +1,8 @@
 import type * as Preset from '@docusaurus/preset-classic'
 import type { Config } from '@docusaurus/types'
 import { themes } from 'prism-react-renderer'
+import remarkMath from 'remark-math'
+import rehypeKatex from 'rehype-katex'
 import social from './data/social'
 import type { GiscusConfig } from './src/components/Comment'
 
@@ -8,7 +10,7 @@ const beian = '闽ICP备2020017848号-3'
 const beian1 = '闽公网安备35021102000847号'
 
 const config: Config = {
-  title: '愧怍',
+  title: 'Liam',
   url: 'https://kuizuo.me',
   baseUrl: '/',
   favicon: 'img/favicon.ico',
@@ -17,7 +19,7 @@ const config: Config = {
   customFields: {
     bio: '道阻且长，行则将至',
     description:
-      '是一个由愧怍创建的个人博客，主要分享编程开发知识和项目，该网站基于 React 驱动的静态网站生成器 Docusaurus 构建。',
+      '是一个由Liam创建的个人博客，主要分享编程开发知识和项目，该网站基于 React 驱动的静态网站生成器 Docusaurus 构建。',
   },
   themeConfig: {
     // announcementBar: {
@@ -28,7 +30,7 @@ const config: Config = {
     metadata: [
       {
         name: 'author',
-        content: '愧怍',
+        content: 'Liam',
       },
       {
         name: 'keywords',
@@ -46,7 +48,7 @@ const config: Config = {
     },
     navbar: {
       logo: {
-        alt: '愧怍',
+        alt: 'Liam',
         src: 'img/logo.webp',
         srcDark: 'img/logo.webp',
       },
@@ -54,14 +56,14 @@ const config: Config = {
       items: [
         { label: '博客', position: 'right', to: 'blog' },
         { label: '项目', position: 'right', to: 'project' },
-        { label: '友链', position: 'right', to: 'friends' },
+        // { label: '友链', position: 'right', to: 'friends' },
         { label: '关于', position: 'right', to: 'about' },
         {
           label: '更多',
           position: 'right',
           items: [
             { label: '归档', to: 'blog/archive' },
-            { label: '主题魔改', to: 'docs/docusaurus-guides' },
+            { label: '留言箱', to: 'guestbook' },
           ],
         },
         // {
@@ -116,12 +118,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `
-        <p style="margin-bottom: 0;"><a href="http://beian.miit.gov.cn/">${beian}</a></p>
-        <p style="display: inline-flex; align-items: center;"><img style="height:20px;margin-right: 0.5rem;" src="/img/police.png" alt="police" height="20"/><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=${beian1.match(/\d+/)?.[0]
-        }" >${beian1}</a></p>
-        <p>Copyright © 2020 - ${new Date().getFullYear()} kuizuo. | Built with Docusaurus.</p>
-        `,
+      copyright: `<p>Liam © 2025</p>`,
     },
     algolia: {
       appId: 'GV6YN1ODMO',
@@ -173,6 +170,8 @@ const config: Config = {
         docs: {
           path: 'docs',
           sidebarPath: 'sidebars.ts',
+          remarkPlugins: [remarkMath],
+          rehypePlugins: [rehypeKatex],
         },
         blog: false,
         theme: {
@@ -192,6 +191,7 @@ const config: Config = {
   plugins: [
     'docusaurus-plugin-image-zoom',
     '@docusaurus/plugin-ideal-image',
+    '@docusaurus/theme-mermaid',
     // ['docusaurus-plugin-baidu-tongji', { token: 'c9a3849aa75f9c4a4e65f846cd1a5155' }],
     [
       '@docusaurus/plugin-pwa',
@@ -228,9 +228,9 @@ const config: Config = {
           defaultReadingTime({ content, options: { wordsPerMinute: 300 } }),
         feedOptions: {
           type: 'all',
-          title: '愧怍',
+          title: 'Liam',
           description: 'feedId:41215011978385457+userId:41840354283324416',
-          copyright: `Copyright © ${new Date().getFullYear()} 愧怍 Built with Docusaurus.<p><a href="http://beian.miit.gov.cn/" class="footer_lin">${beian}</a></p>`,
+          copyright: `Copyright © ${new Date().getFullYear()} Liam Built with Docusaurus.<p><a href="http://beian.miit.gov.cn/" class="footer_lin">${beian}</a></p>`,
         },
       },
     ],
@@ -284,7 +284,7 @@ Love what you do and do what you love.
       tagName: 'meta',
       attributes: {
         name: 'description',
-        content: '愧怍的个人博客',
+        content: 'Liam的个人博客',
       },
     },
   ],
@@ -292,10 +292,19 @@ Love what you do and do what you love.
     'https://cdn.jsdelivr.net/npm/misans@4.0.0/lib/Normal/MiSans-Normal.min.css',
     'https://cdn.jsdelivr.net/npm/misans@4.0.0/lib/Normal/MiSans-Medium.min.css',
     'https://cdn.jsdelivr.net/npm/misans@4.0.0/lib/Normal/MiSans-Semibold.min.css',
+    {
+      href: 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css',
+      type: 'text/css',
+      integrity: 'sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV',
+      crossorigin: 'anonymous',
+    },
   ],
   i18n: {
     defaultLocale: 'zh-CN',
     locales: ['zh-CN'],
+  },
+  markdown: {
+    mermaid: true,
   },
   onBrokenLinks: 'warn',
   future: {
