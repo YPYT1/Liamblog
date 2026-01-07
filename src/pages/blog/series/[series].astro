@@ -1,0 +1,50 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { dbAll } from '@/lib/db'
+
+const { series } = Astro.params
+const env = Astro.locals.runtime.env
+const page = Math.max(1, Number(Astro.url.searchParams.get('page') || '1'))
+const pageSize = 12
+const offset = (page - 1) * pageSize
+const posts = await dbAll(
+  env.DB,
+  'SELECT slug, title, summary, series, published_at FROM posts WHERE status = ? AND series = ? ORDER BY published_at DESC LIMIT ? OFFSET ?',
+  ['published', series, pageSize, offset],
+)
+const totalRows = await dbAll<{ total: number }>(
+  env.DB,
+  'SELECT COUNT(*) as total FROM posts WHERE status = ? AND series = ?',
+  ['published', series],
+)
+const total = (totalRows[0] as unknown as { total: number })?.total ?? 0
+const totalPages = Math.max(1, Math.ceil(total / pageSize))
+---
+<BaseLayout title={series} description={`系列 ${series}`}>
+  <section class="mx-auto max-w-4xl px-4 py-10">
+    <h1 class="text-2xl font-semibold">{series}</h1>
+    <div class="mt-6 space-y-3">
+      {posts.map((post) => (
+        <a class="glass-card block p-5" href={`/blog/${post.slug}`}>
+          <div class="text-base font-medium">{post.title}</div>
+          {post.summary && <div class="mt-2 text-sm text-slate-600">{post.summary}</div>}
+          <div class="mt-2 text-xs text-slate-400">{post.published_at}</div>
+        </a>
+      ))}
+      {posts.length === 0 && <div class="text-sm text-slate-500">暂无文章</div>}
+    </div>
+    {totalPages > 1 && (
+      <div class="mt-8 flex items-center justify-between text-sm text-slate-500">
+        <a class={page <= 1 ? 'pointer-events-none opacity-40' : ''} href={`/blog/series/${encodeURIComponent(series)}?page=${page - 1}`}>
+          上一页
+        </a>
+        <span>
+          {page} / {totalPages}
+        </span>
+        <a class={page >= totalPages ? 'pointer-events-none opacity-40' : ''} href={`/blog/series/${encodeURIComponent(series)}?page=${page + 1}`}>
+          下一页
+        </a>
+      </div>
+    )}
+  </section>
+</BaseLayout>

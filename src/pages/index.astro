@@ -1,0 +1,93 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Hero from '@/components/Hero.astro'
+import { dbAll, dbGet } from '@/lib/db'
+
+const env = Astro.locals.runtime.env
+const latestPosts = await dbAll(env.DB, 'SELECT slug, title, summary, published_at FROM posts WHERE status = ? ORDER BY published_at DESC LIMIT 3', ['published'])
+const latestDocs = await dbAll(env.DB, 'SELECT slug, title, summary, published_at FROM docs WHERE status = ? ORDER BY order_index ASC, published_at DESC LIMIT 3', ['published'])
+const postCount = await dbGet<{ count: number }>(env.DB, 'SELECT COUNT(*) as count FROM posts WHERE status = ?', ['published'])
+const docCount = await dbGet<{ count: number }>(env.DB, 'SELECT COUNT(*) as count FROM docs WHERE status = ?', ['published'])
+---
+<BaseLayout title="Liam" description="Liam 的个人博客">
+  <Hero />
+  
+  {/* 内容区域 - 加宽到 max-w-[1400px] 以匹配 Hero */}
+  <section class="relative z-10 mx-auto max-w-[1400px] px-6 pb-20">
+    <div class="grid gap-6 md:grid-cols-3 mb-10">
+      <a href="/blog" class="group relative overflow-hidden rounded-2xl border border-black/5 bg-white p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md dark:border-white/10 dark:bg-[#151515]">
+        <div class="relative">
+           <div class="text-xs font-bold uppercase tracking-widest text-slate-400">博客文章</div>
+           <div class="mt-4 text-5xl font-light text-slate-900 dark:text-white">{postCount?.count ?? 0}</div>
+           <div class="mt-2 text-sm text-slate-500">篇思考随笔</div>
+        </div>
+      </a>
+      
+      <a href="/docs" class="group relative overflow-hidden rounded-2xl border border-black/5 bg-white p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md dark:border-white/10 dark:bg-[#151515]">
+        <div class="relative">
+           <div class="text-xs font-bold uppercase tracking-widest text-slate-400">知识文档</div>
+           <div class="mt-4 text-5xl font-light text-slate-900 dark:text-white">{docCount?.count ?? 0}</div>
+           <div class="mt-2 text-sm text-slate-500">篇技术沉淀</div>
+        </div>
+      </a>
+      
+      <a href="/search" class="group relative overflow-hidden rounded-2xl border border-black/5 bg-white p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md dark:border-white/10 dark:bg-[#151515]">
+        <div class="relative h-full flex flex-col justify-between">
+           <div>
+             <div class="text-xs font-bold uppercase tracking-widest text-slate-400">站内搜索</div>
+             <div class="mt-4 text-base text-slate-600 dark:text-slate-400">快速查找任何内容...</div>
+           </div>
+           <div class="mt-4 flex items-center text-sm font-medium text-slate-900 dark:text-white">
+             按 <kbd class="mx-2 rounded border border-slate-200 bg-slate-100 px-2 py-0.5 text-xs font-sans text-slate-500 dark:border-white/10 dark:bg-white/5">K</kbd> 键开始
+           </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="grid gap-8 lg:grid-cols-[1.5fr_1fr]">
+      {/* 最新文章 */}
+      <div class="rounded-[2rem] border border-black/5 bg-white p-10 shadow-sm dark:border-white/10 dark:bg-[#151515]">
+        <div class="flex items-center justify-between mb-8">
+          <h2 class="text-2xl font-semibold text-slate-900 dark:text-white">最新文章</h2>
+          <a class="text-sm font-medium text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors" href="/blog">查看全部 →</a>
+        </div>
+        <div class="space-y-4">
+          {latestPosts.map((post) => (
+            <a class="group block rounded-xl border border-transparent bg-slate-50 p-6 transition-all hover:bg-slate-100 hover:scale-[1.01] dark:bg-white/5 dark:hover:bg-white/10" href={`/blog/${post.slug}`}>
+              <div class="flex items-center justify-between">
+                 <h3 class="text-lg font-medium text-slate-800 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{post.title}</h3>
+                 <span class="text-xs text-slate-400 shrink-0 ml-4 font-mono">{post.published_at?.substring(0, 10)}</span>
+              </div>
+              {post.summary && <p class="mt-3 text-sm text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">{post.summary}</p>}
+            </a>
+          ))}
+          {latestPosts.length === 0 && <div class="py-10 text-center text-sm text-slate-500">暂无文章，开始写作吧！</div>}
+        </div>
+      </div>
+
+      {/* 最近文档 */}
+      <div class="rounded-[2rem] border border-black/5 bg-white p-10 shadow-sm dark:border-white/10 dark:bg-[#151515]">
+        <div class="flex items-center justify-between mb-8">
+          <h2 class="text-2xl font-semibold text-slate-900 dark:text-white">最近文档</h2>
+          <a class="text-sm font-medium text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors" href="/docs">查看全部 →</a>
+        </div>
+        <div class="space-y-4">
+          {latestDocs.map((doc) => (
+            <a class="group flex items-start gap-4 rounded-xl p-4 transition-colors hover:bg-slate-50 dark:hover:bg-white/5" href={`/docs/${doc.slug}`}>
+              <div class="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-slate-100 dark:bg-white/10 text-slate-500">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              <div>
+                <div class="text-base font-medium text-slate-800 dark:text-slate-200 group-hover:underline decoration-slate-300 underline-offset-4">{doc.title}</div>
+                <div class="mt-1 text-xs text-slate-400 font-mono">{doc.published_at?.substring(0, 10)}</div>
+              </div>
+            </a>
+          ))}
+          {latestDocs.length === 0 && <div class="py-10 text-center text-sm text-slate-500">暂无文档。</div>}
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

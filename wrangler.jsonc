@@ -1,0 +1,34 @@
+{
+	"main": "dist/_worker.js/index.js",
+	"name": "liam-blog",
+  "compatibility_date": "2026-01-06",
+  "compatibility_flags": [
+    "nodejs_compat",
+    "global_fetch_strictly_public"
+  ],
+  "migrations_dir": "db/migrations",
+	"assets": {
+		"binding": "ASSETS",
+		"directory": "./dist"
+	},
+  "vars": {
+    "APP_URL": "https://xxx.pages.dev",
+    "SESSION_COOKIE_NAME": "liam_session"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "liam_blog",
+      "database_id": "a8670de4-0587-425b-bdf6-776ae3641232"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "R2",
+      "bucket_name": "liam-blog-assets"
+    }
+  ],
+	"observability": {
+    "enabled": true
+  }
+}

@@ -1,0 +1,46 @@
+--- 
+import TextType from '@/components/react/TextType'
+---
+
+<section class="relative flex min-h-screen w-full flex-col items-center justify-center bg-white overflow-hidden dark:bg-black">
+  {/* 背景层：极微弱的氛围 */}
+  <div class="pointer-events-none absolute inset-0 z-0">
+    <div class="absolute left-[-10%] top-[-10%] h-[60vw] w-[60vw] animate-blob rounded-full bg-blue-100/30 opacity-30 blur-[120px] mix-blend-multiply filter dark:bg-blue-900/10 dark:mix-blend-normal"></div>
+    <div class="animation-delay-2000 absolute right-[-10%] top-[-10%] h-[60vw] w-[60vw] animate-blob rounded-full bg-purple-100/30 opacity-30 blur-[120px] mix-blend-multiply filter dark:bg-purple-900/10 dark:mix-blend-normal"></div>
+  </div>
+
+  {/* 主内容：打字机动画文字 */}
+  <div class="relative z-10 flex w-full flex-col items-center justify-center text-center select-none">
+    
+    <TextType
+      text={["Hi,\nI'm Liam"]}
+      typingSpeed={120}
+      deletingSpeed={50}
+      pauseDuration={3000}
+      loop={true}
+      cursorCharacter="|"
+      cursorClassName="text-slate-400 dark:text-slate-600 ml-2 animate-pulse"
+      className="text-[18vw] leading-[0.9] font-black tracking-tighter text-slate-900 dark:text-white"
+      client:load
+    />
+
+  </div>
+</section>
+
+<style>
+  /* 呼吸背景动画 */
+  @keyframes blob {
+    0% { transform: translate(0px, 0px) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+    100% { transform: translate(0px, 0px) scale(1); }
+  }
+  
+  .animate-blob {
+    animation: blob 25s infinite alternate ease-in-out;
+  }
+  
+  .animation-delay-2000 {
+    animation-delay: 5s; /* 背景延迟 */
+  }
+</style>

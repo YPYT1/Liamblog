@@ -1,28 +1,26 @@
-# Dependencies
-node_modules
-.kiro
-.github/
-.vscode/
-# Production
-/build
-/drafts
-/tmp
-cloudbaserc.json
+# build output
+dist/
+# generated types
+.astro/
 
-# Generated files
-.docusaurus
-.cache-loader
+# dependencies
+node_modules/
 
-# Misc
-.DS_Store
-.env
-
-# Packages
-/packages
-
+# logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-error.log*
+pnpm-debug.log*
 
-.vercel
+
+# environment variables
+.env
+.env.production
+.dev.vars
+.dev.vars.local
+
+# macOS-specific files
+.DS_Store
+
+# jetbrains setting folder
+.idea/

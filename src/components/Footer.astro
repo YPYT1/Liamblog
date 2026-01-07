@@ -1,0 +1,51 @@
+---
+const links = [
+  {
+    title: '内容',
+    items: [
+      { label: '博客', href: '/blog' },
+      { label: '文档', href: '/docs' },
+      { label: '归档', href: '/blog/archive' },
+      { label: '项目', href: '/project' },
+    ],
+  },
+  {
+    title: '互动',
+    items: [
+      { label: '留言箱', href: '/guestbook' },
+      { label: '搜索', href: '/search' },
+      { label: 'RSS', href: '/rss.xml' },
+      { label: 'Sitemap', href: '/sitemap.xml' },
+    ],
+  },
+  {
+    title: '关于',
+    items: [
+      { label: '关于我', href: '/about' },
+    ],
+  },
+]
+---
+{/* 移除 border-t, 背景纯白 */}
+<footer class="mt-20 bg-white text-slate-700 dark:bg-black dark:text-slate-400">
+  <div class="mx-auto grid max-w-[1400px] grid-cols-1 gap-10 px-6 py-12 sm:grid-cols-3">
+    {links.map((group) => (
+      <div>
+        <h3 class="mb-4 text-sm font-semibold text-slate-900 dark:text-white">{group.title}</h3>
+        <ul class="space-y-3 text-sm text-slate-500 dark:text-slate-500">
+          {group.items.map((item) => (
+            <li>
+              <a class="transition hover:text-slate-900 dark:hover:text-white" href={item.href}>
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+  {/* 移除 border-t */}
+  <div class="py-8 text-center text-xs text-slate-400">
+    Liam © 2026
+  </div>
+</footer>

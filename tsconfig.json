@@ -1,30 +1,23 @@
 {
-  "extends": "@docusaurus/tsconfig",
+  "extends": "astro/tsconfigs/strict",
+  "include": [
+    ".astro/types.d.ts",
+    "**/*"
+  ],
+  "exclude": [
+    "dist"
+  ],
   "compilerOptions": {
-    "lib": ["DOM", "ESNext"],
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
     "baseUrl": ".",
-    "resolveJsonModule": true,
-    "allowUnreachableCode": false,
-    "exactOptionalPropertyTypes": false,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitOverride": true,
-    "noImplicitReturns": true,
-    "noPropertyAccessFromIndexSignature": false,
-    "noUncheckedIndexedAccess": true,
-    "strict": true,
-    "alwaysStrict": true,
-    "noImplicitAny": false,
-    "noImplicitThis": true,
-    "strictBindCallApply": true,
-    "strictFunctionTypes": true,
-    "strictNullChecks": true,
-    "strictPropertyInitialization": true,
-    "useUnknownInCatchVariables": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "importsNotUsedAsValues": "remove",
-    "moduleResolution": "Bundler",
-    "skipLibCheck": false
-  },
-  "exclude": ["src/sw.js"]
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
+    "types": [
+      "@cloudflare/workers-types"
+    ]
+  }
 }

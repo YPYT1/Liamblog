@@ -1,0 +1,177 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Comments from '@/components/Comments'
+import { dbAll, dbGet } from '@/lib/db'
+import { parseTags, readingTime, extractHeadings, addHeadingIds } from '@/lib/content'
+
+const { slug } = Astro.params
+const env = Astro.locals.runtime.env
+const preview = Astro.url.searchParams.get('preview') === '1'
+const isAdmin = Astro.locals.user?.role === 'admin'
+const allowDraft = preview && isAdmin
+
+const doc = await dbGet<{
+  id: string
+  title: string
+  summary: string | null
+  content_html: string
+  published_at: string | null
+  updated_at: string
+  tags: string | null
+  category: string | null
+  series: string | null
+  status: string
+  order_index: number
+}>(
+  env.DB,
+  allowDraft
+    ? 'SELECT id, title, summary, content_html, published_at, updated_at, tags, category, series, status, order_index FROM docs WHERE slug = ? LIMIT 1'
+    : 'SELECT id, title, summary, content_html, published_at, updated_at, tags, category, series, status, order_index FROM docs WHERE slug = ? AND status = ? LIMIT 1',
+  allowDraft ? [slug] : [slug, 'published'],
+)
+
+if (!doc || doc.status === 'deleted') {
+  throw new Response('Not found', { status: 404 })
+}
+
+if (!allowDraft && doc.status !== 'published') {
+  throw new Response('Not found', { status: 404 })
+}
+
+const tags = parseTags(doc.tags)
+const contentHtml = addHeadingIds(doc.content_html)
+const read = readingTime(contentHtml)
+const headings = extractHeadings(contentHtml)
+
+let related: { slug: string; title: string; summary?: string }[] = []
+if (doc.category || tags.length) {
+  const like = tags[0] ? `%${tags[0]}%` : '%'
+  related = await dbAll(
+    env.DB,
+    `SELECT slug, title, summary FROM docs
+     WHERE status = 'published' AND id != ? AND (category = ? OR tags LIKE ?)
+     ORDER BY order_index ASC, published_at DESC LIMIT 4`,
+    [doc.id, doc.category ?? '', like],
+  )
+}
+if (related.length === 0) {
+  related = await dbAll(
+    env.DB,
+    'SELECT slug, title, summary FROM docs WHERE status = ? AND id != ? ORDER BY order_index ASC, published_at DESC LIMIT 4',
+    ['published', doc.id],
+  )
+}
+
+const prevDoc = await dbGet<{ slug: string; title: string }>(
+  env.DB,
+  allowDraft
+    ? 'SELECT slug, title FROM docs WHERE order_index < ? ORDER BY order_index DESC LIMIT 1'
+    : 'SELECT slug, title FROM docs WHERE status = ? AND order_index < ? ORDER BY order_index DESC LIMIT 1',
+  allowDraft ? [doc.order_index] : ['published', doc.order_index],
+)
+
+const nextDoc = await dbGet<{ slug: string; title: string }>(
+  env.DB,
+  allowDraft
+    ? 'SELECT slug, title FROM docs WHERE order_index > ? ORDER BY order_index ASC LIMIT 1'
+    : 'SELECT slug, title FROM docs WHERE status = ? AND order_index > ? ORDER BY order_index ASC LIMIT 1',
+  allowDraft ? [doc.order_index] : ['published', doc.order_index],
+)
+---
+<BaseLayout title={doc.title} description={doc.summary || ''}>
+  <section class="mx-auto max-w-6xl px-4 py-10 lg:grid lg:grid-cols-[minmax(0,1fr)_240px] lg:gap-10">
+    <div>
+      <article class="mx-auto max-w-3xl lg:mx-0">
+        {doc.status !== 'published' && (
+          <div class="mb-6 rounded-xl border border-amber-200 bg-amber-50/70 px-4 py-3 text-xs text-amber-700">
+            草稿预览中，仅管理员可见。
+          </div>
+        )}
+        <div class="text-xs uppercase tracking-[0.3em] text-slate-400">Docs</div>
+        <h1 class="mt-3 text-3xl font-semibold text-slate-900">{doc.title}</h1>
+        {doc.summary && <p class="mt-3 text-sm text-slate-600">{doc.summary}</p>}
+        <div class="mt-3 flex flex-wrap items-center gap-2 text-xs text-slate-500">
+          <span>{doc.published_at || doc.updated_at}</span>
+          <span>{read.minutes} min read</span>
+          {doc.category && <span class="rounded-full bg-black/5 px-2 py-0.5">{doc.category}</span>}
+          {doc.series && <span class="rounded-full bg-black/5 px-2 py-0.5">系列：{doc.series}</span>}
+        </div>
+        <div class="mt-3 flex flex-wrap gap-2">
+          {tags.map((tag) => (
+            <a class="text-xs text-slate-500 transition hover:text-slate-800" href={`/docs/tags/${encodeURIComponent(tag)}`}>
+              #{tag}
+            </a>
+          ))}
+        </div>
+        <div class="prose prose-slate mt-8 max-w-none" set:html={contentHtml} />
+      </article>
+
+      {doc.status === 'published' && <Comments targetType="doc" targetId={doc.id} client:only="react" />}
+
+      {doc.status === 'published' && (
+        <script is:inline>
+          const payload = { type: 'doc', id: {JSON.stringify(doc.id)} };
+          fetch('/api/metrics/view', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(payload)
+          }).catch(() => {})
+        </script>
+      )}
+
+      {(prevDoc || nextDoc) && (
+        <div class="mt-10 grid gap-3 md:grid-cols-2">
+          {prevDoc && (
+            <a class="glass-card p-4 transition hover:-translate-y-0.5" href={`/docs/${prevDoc.slug}`}>
+              <div class="text-xs uppercase tracking-[0.3em] text-slate-400">上一篇</div>
+              <div class="mt-2 text-sm font-medium text-slate-800">{prevDoc.title}</div>
+            </a>
+          )}
+          {nextDoc && (
+            <a class="glass-card p-4 transition hover:-translate-y-0.5" href={`/docs/${nextDoc.slug}`}>
+              <div class="text-xs uppercase tracking-[0.3em] text-slate-400">下一篇</div>
+              <div class="mt-2 text-sm font-medium text-slate-800">{nextDoc.title}</div>
+            </a>
+          )}
+        </div>
+      )}
+
+      {related.length > 0 && (
+        <div class="mt-12">
+          <h3 class="text-lg font-semibold">相关文档</h3>
+          <div class="mt-4 grid gap-3 md:grid-cols-2">
+            {related.map((item) => (
+              <a class="glass-card p-4 transition hover:-translate-y-0.5" href={`/docs/${item.slug}`}>
+                <div class="text-sm font-medium text-slate-800">{item.title}</div>
+                {item.summary && <div class="mt-2 text-xs text-slate-500">{item.summary}</div>}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+
+    <aside class="hidden lg:block">
+      <div class="sticky top-28 space-y-6">
+        {headings.length > 0 && (
+          <div class="glass-card p-4">
+            <div class="text-xs uppercase tracking-[0.3em] text-slate-400">目录</div>
+            <ul class="mt-3 space-y-2 text-sm text-slate-600">
+              {headings.map((item) => (
+                <li class={item.level === 3 ? 'pl-3 text-xs' : ''}>
+                  <a class="transition hover:text-slate-900" href={`#${item.id}`}>
+                    {item.text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        <div class="glass-card p-4">
+          <div class="text-xs uppercase tracking-[0.3em] text-slate-400">阅读提示</div>
+          <p class="mt-3 text-sm text-slate-600">更适合逐段阅读与查阅，建议收藏常用章节。</p>
+        </div>
+      </div>
+    </aside>
+  </section>
+</BaseLayout>
