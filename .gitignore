@@ -11,6 +11,20 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+*.log
+
+# cloudflare/wrangler local state
+.wrangler/state/
+.wrangler/tmp/
+.wrangler/local/
+
+# cache
+.cache/
+.vite/
+.turbo/
+.parcel-cache/
+.eslintcache
+.stylelintcache
 
 
 # environment variables

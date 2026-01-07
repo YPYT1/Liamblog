@@ -12,7 +12,7 @@
 		"directory": "./dist"
 	},
   "vars": {
-    "APP_URL": "https://xxx.pages.dev",
+    "APP_URL": "https://liamwang.online",
     "SESSION_COOKIE_NAME": "liam_session"
   },
   "d1_databases": [
