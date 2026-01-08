@@ -110,8 +110,8 @@ const nextItem = currentIndex >= 0 && currentIndex < seriesItems.length - 1 ? se
       {post.status === 'published' && <Comments targetType="post" targetId={post.id} client:only="react" />}
 
       {post.status === 'published' && (
-        <script is:inline>
-          const payload = { type: 'post', id: {JSON.stringify(post.id)} };
+        <script is:inline define:vars={{ postId: post.id }}>
+          const payload = { type: 'post', id: postId };
           fetch('/api/metrics/view', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },

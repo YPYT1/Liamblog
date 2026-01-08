@@ -20,6 +20,21 @@ export default defineConfig({
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
       },
+      dedupe: ['react', 'react-dom', 'react/jsx-runtime', 'react/jsx-dev-runtime'],
+    },
+    optimizeDeps: {
+      include: ['react', 'react-dom', 'react/jsx-runtime', 'react/jsx-dev-runtime'],
+    },
+    server: {
+      port: 4321,
+      strictPort: true,
+      origin: 'http://localhost:4321',
+      hmr: {
+        host: 'localhost',
+        protocol: 'ws',
+        clientPort: 4321,
+        port: 4321,
+      },
     },
   },
 

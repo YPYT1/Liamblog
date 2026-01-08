@@ -1,3 +1,9 @@
 ---
-return Astro.redirect('/Liam/admin', 301)
+import BaseLayout from '@/layouts/BaseLayout.astro'
 ---
+<BaseLayout title="管理员入口" description="管理员入口提示">
+  <section class="mx-auto max-w-2xl px-4 py-16 text-center">
+    <h1 class="text-2xl font-semibold text-slate-900">没有管理员界面</h1>
+    <p class="mt-3 text-sm text-slate-600">管理员入口不在此处。</p>
+  </section>
+</BaseLayout>

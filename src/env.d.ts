@@ -10,6 +10,7 @@ interface EnvBindings {
   SESSION_SECRET: string
   ADMIN_EMAIL: string
   ADMIN_PASSWORD: string
+  ADMIN_USERNAME?: string
   BOOTSTRAP_SECRET: string
   RESEND_API_KEY: string
   EMAIL_FROM: string

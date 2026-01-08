@@ -1,37 +1,41 @@
 import { z } from 'zod'
 import { json, error } from '@/lib/http'
-import { emailSchema, passwordSchema, codeSchema } from '@/lib/validation'
+import { emailSchema, passwordSchema } from '@/lib/validation'
 import { dbGet, dbRun } from '@/lib/db'
 import { createSalt, hashPassword, randomId } from '@/lib/crypto'
-import { verifyCode } from '@/lib/email-codes'
 import { nowIso } from '@/lib/time'
 import { createSession, sessionCookie } from '@/lib/auth'
 
 const bodySchema = z.object({
-  email: emailSchema,
+  account: z.string().trim().min(1),
   password: passwordSchema,
-  code: codeSchema,
+  confirmPassword: z.string(),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: 'passwords do not match',
+  path: ['confirmPassword'],
 })
 
 export async function POST({ request, locals }: { request: Request; locals: App.Locals }) {
   const env = locals.runtime.env
   const body = await request.json().catch(() => null)
   const parsed = bodySchema.safeParse(body)
-  if (!parsed.success) return error(400, 'invalid payload')
+  if (!parsed.success) return error(400, '注册信息不正确')
 
-  const { email, password, code } = parsed.data
-  const existing = await dbGet(env.DB, 'SELECT id FROM users WHERE email = ? LIMIT 1', [email])
-  if (existing) return error(409, 'email already registered')
+  const { account, password } = parsed.data
+  const normalized = account.trim()
+  const isEmail = emailSchema.safeParse(normalized).success
+  if (!isEmail && normalized.length < 5) return error(400, '用户名至少5位')
 
-  const validCode = await verifyCode(env.DB, email, code, 'signup')
-  if (!validCode) return error(400, 'invalid code')
+  const existing = await dbGet(env.DB, 'SELECT id FROM users WHERE email = ? OR display_name = ? LIMIT 1', [normalized, normalized])
+  if (existing) return error(409, isEmail ? '邮箱已被注册' : '用户名已存在')
 
   const salt = await createSalt()
   const passwordHash = await hashPassword(password, salt)
   const now = nowIso()
   const userId = randomId()
 
-  const displayName = email.split('@')[0]
+  const email = normalized
+  const displayName = isEmail ? normalized.split('@')[0] : normalized
   await dbRun(
     env.DB,
     'INSERT INTO users (id, email, password_hash, password_salt, role, verified, display_name, created_at, updated_at) VALUES (?, ?, ?, ?, ?, 1, ?, ?, ?)',
@@ -39,7 +43,8 @@ export async function POST({ request, locals }: { request: Request; locals: App.
   )
 
   const session = await createSession(env.DB, userId, env.SESSION_SECRET)
-  const secure = request.url.startsWith('https://') || env.APP_URL.startsWith('https://')
+  const appUrl = env.APP_URL || ''
+  const secure = request.url.startsWith('https://') || appUrl.startsWith('https://')
   return json(
     { ok: true },
     {

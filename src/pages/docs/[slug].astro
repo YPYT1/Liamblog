@@ -109,8 +109,8 @@ const nextDoc = await dbGet<{ slug: string; title: string }>(
       {doc.status === 'published' && <Comments targetType="doc" targetId={doc.id} client:only="react" />}
 
       {doc.status === 'published' && (
-        <script is:inline>
-          const payload = { type: 'doc', id: {JSON.stringify(doc.id)} };
+        <script is:inline define:vars={{ docId: doc.id }}>
+          const payload = { type: 'doc', id: docId };
           fetch('/api/metrics/view', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },

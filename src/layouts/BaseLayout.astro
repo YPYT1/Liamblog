@@ -56,6 +56,16 @@ const isDev = import.meta.env.DEV
       <slot />
     </main>
     <Footer />
+    {isDev && (
+      <script is:inline>
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.getRegistrations().then((regs) => regs.forEach((reg) => reg.unregister()))
+        }
+        if ('caches' in window) {
+          caches.keys().then((keys) => Promise.all(keys.map((key) => caches.delete(key))))
+        }
+      </script>
+    )}
     {!isDev && (
       <script is:inline>
         if ('serviceWorker' in navigator) {

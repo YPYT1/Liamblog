@@ -15,6 +15,7 @@ export async function POST({ request, locals }: { request: Request; locals: App.
   const body = await request.json().catch(() => null)
   const parsed = bodySchema.safeParse(body)
   if (!parsed.success) return error(400, 'invalid payload')
+  if (!env.RESEND_API_KEY) return error(400, 'email service not configured')
 
   const { email, purpose } = parsed.data
   const existing = await dbGet(env.DB, 'SELECT id FROM users WHERE email = ? LIMIT 1', [email])

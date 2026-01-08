@@ -3,10 +3,28 @@ import { createSalt, hashPassword, randomId } from '@/lib/crypto'
 import { nowIso } from '@/lib/time'
 import { emailSchema, passwordSchema } from '@/lib/validation'
 
-let bootstrapped = false
+let bootstrappedAdmin = false
+let bootstrappedNamedAdmin = false
 
 export async function ensureDevAdmin(env: App.Locals['runtime']['env']) {
-  if (bootstrapped) return
+  if (bootstrappedAdmin && bootstrappedNamedAdmin) return
+
+  const adminUsername = env.ADMIN_USERNAME?.trim()
+  if (adminUsername && !bootstrappedNamedAdmin) {
+    const target = await dbGet<{ id: string; role: string }>(
+      env.DB,
+      'SELECT id, role FROM users WHERE display_name = ? OR email = ? LIMIT 1',
+      [adminUsername, adminUsername],
+    )
+    if (target) {
+      if (target.role !== 'admin') {
+        await dbRun(env.DB, 'UPDATE users SET role = ? WHERE id = ?', ['admin', target.id])
+      }
+      bootstrappedNamedAdmin = true
+    }
+  }
+
+  if (bootstrappedAdmin) return
   if (!env.ADMIN_EMAIL || !env.ADMIN_PASSWORD) return
 
   const emailOk = emailSchema.safeParse(env.ADMIN_EMAIL).success
@@ -15,7 +33,7 @@ export async function ensureDevAdmin(env: App.Locals['runtime']['env']) {
 
   const existing = await dbGet(env.DB, 'SELECT id FROM users WHERE role = ? LIMIT 1', ['admin'])
   if (existing) {
-    bootstrapped = true
+    bootstrappedAdmin = true
     return
   }
 
@@ -30,5 +48,5 @@ export async function ensureDevAdmin(env: App.Locals['runtime']['env']) {
     [randomId(), env.ADMIN_EMAIL, passwordHash, salt, 'admin', displayName, now, now],
   )
 
-  bootstrapped = true
+  bootstrappedAdmin = true
 }

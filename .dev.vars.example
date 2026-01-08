@@ -1,24 +1,9 @@
-# App
 APP_URL="http://localhost:4321"
 SESSION_COOKIE_NAME="liam_session"
-SESSION_SECRET="change_me_32_plus_chars"
-
-# Admin bootstrap (first-time only)
+SESSION_SECRET="change-me"
 ADMIN_EMAIL="admin@example.com"
-ADMIN_PASSWORD="change_me"
-BOOTSTRAP_SECRET="change_me"
-
-# Email (Resend)
-RESEND_API_KEY=""
-EMAIL_FROM="onboarding@resend.dev"
-
-# R2 public base URL (if using a custom domain later)
-R2_PUBLIC_BASE_URL=""
-
-# Analytics (Cloudflare Web Analytics)
-CLOUDFLARE_ANALYTICS_TOKEN=""
-
-# Algolia (optional)
-PUBLIC_ALGOLIA_APP_ID=""
-PUBLIC_ALGOLIA_SEARCH_KEY=""
-PUBLIC_ALGOLIA_INDEX=""
+ADMIN_PASSWORD="change-me"
+ADMIN_USERNAME="LiamWang"
+BOOTSTRAP_SECRET="change-me"
+RESEND_API_KEY="replace-me"
+EMAIL_FROM="noreply@example.com"

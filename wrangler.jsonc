@@ -6,20 +6,12 @@
     "nodejs_compat",
     "global_fetch_strictly_public"
   ],
-  "migrations_dir": "db/migrations",
-	"assets": {
-		"binding": "ASSETS",
-		"directory": "./dist"
-	},
-  "vars": {
-    "APP_URL": "https://liamwang.online",
-    "SESSION_COOKIE_NAME": "liam_session"
-  },
   "d1_databases": [
     {
       "binding": "DB",
       "database_name": "liam_blog",
-      "database_id": "a8670de4-0587-425b-bdf6-776ae3641232"
+      "database_id": "a8670de4-0587-425b-bdf6-776ae3641232",
+      "migrations_dir": "db/migrations"
     }
   ],
   "r2_buckets": [

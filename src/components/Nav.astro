@@ -2,6 +2,15 @@
 import ThemeToggle from '@/components/ThemeToggle'
 const user = Astro.locals.user
 
+const rawLabel = user?.display_name || user?.email || ''
+const navLabel = user
+  ? rawLabel.includes('@')
+    ? rawLabel.slice(0, 4)
+    : rawLabel
+  : '登录'
+const avatarUrl = user?.avatar_url || ''
+const avatarFallback = (navLabel || 'U').slice(0, 2).toUpperCase()
+
 const navItems = [
   { label: '博客', href: '/blog' },
   { label: '项目', href: '/project' },
@@ -16,7 +25,7 @@ const moreItems = [
   ...(user?.role === 'admin' ? [{ label: '后台', href: '/Liam/admin' }] : []),
 ]
 
-const authItem = { label: user ? '账号' : '登录', href: '/auth' }
+const authItem = { label: navLabel || (user ? '账号' : '登录'), href: '/auth' }
 ---
 
 <header class="sticky top-0 z-50 w-full border-b border-black/5 bg-white/80 backdrop-blur-md dark:border-white/5 dark:bg-black/80">
@@ -60,11 +69,24 @@ const authItem = { label: user ? '账号' : '登录', href: '/auth' }
 
     {/* 3. 右侧功能区 */}
     <div class="flex shrink-0 items-center gap-4">
-      <a 
-        class="text-sm font-medium text-slate-600 transition hover:text-slate-900 dark:text-slate-300 dark:hover:text-white" 
+      <a
+        class="flex items-center gap-2 text-sm font-medium text-slate-600 transition hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
         href={authItem.href}
       >
-        {authItem.label}
+        {user ? (
+          <>
+            {avatarUrl ? (
+              <img src={avatarUrl} alt={authItem.label} class="h-7 w-7 rounded-full object-cover ring-1 ring-black/10" />
+            ) : (
+              <span class="grid h-7 w-7 place-items-center rounded-full bg-slate-200 text-[11px] font-semibold text-slate-700">
+                {avatarFallback}
+              </span>
+            )}
+            <span>{authItem.label}</span>
+          </>
+        ) : (
+          <span>{authItem.label}</span>
+        )}
       </a>
       {/* 垂直分割线 */}
       <div class="h-4 w-px bg-slate-200 dark:bg-white/10"></div>

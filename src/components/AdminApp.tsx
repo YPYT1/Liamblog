@@ -238,7 +238,7 @@ export default function AdminApp() {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       credentials: 'include',
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ account: email, password }),
     })
     if (!res.ok) {
       setError('登录失败')
@@ -437,7 +437,7 @@ export default function AdminApp() {
         <div className="mt-4 space-y-3">
           <input
             className="w-full rounded-md border px-3 py-2"
-            placeholder="邮箱"
+            placeholder="邮箱或用户名"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
