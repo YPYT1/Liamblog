@@ -1,0 +1,75 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/docs",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/docs",
+          "mainDocId": "docusaurus/docusaurus-guides",
+          "docs": [
+            {
+              "id": "docusaurus/docusaurus-comment",
+              "path": "/docs/docusaurus-comment",
+              "sidebar": "docs"
+            },
+            {
+              "id": "docusaurus/docusaurus-component",
+              "path": "/docs/docusaurus-component",
+              "sidebar": "docs"
+            },
+            {
+              "id": "docusaurus/docusaurus-config",
+              "path": "/docs/docusaurus-config",
+              "sidebar": "docs"
+            },
+            {
+              "id": "docusaurus/docusaurus-deploy",
+              "path": "/docs/docusaurus-deploy",
+              "sidebar": "docs"
+            },
+            {
+              "id": "docusaurus/docusaurus-guides",
+              "path": "/docs/docusaurus-guides",
+              "sidebar": "docs"
+            },
+            {
+              "id": "docusaurus/docusaurus-plugin",
+              "path": "/docs/docusaurus-plugin",
+              "sidebar": "docs"
+            },
+            {
+              "id": "docusaurus/docusaurus-search",
+              "path": "/docs/docusaurus-search",
+              "sidebar": "docs"
+            },
+            {
+              "id": "docusaurus/docusaurus-style",
+              "path": "/docs/docusaurus-style",
+              "sidebar": "docs"
+            }
+          ],
+          "draftIds": [],
+          "sidebars": {
+            "docs": {
+              "link": {
+                "path": "/docs/docusaurus-guides",
+                "label": "Docusaurus 主题魔改"
+              }
+            }
+          }
+        }
+      ],
+      "breadcrumbs": true
+    }
+  },
+  "docusaurus-plugin-content-blog": {
+    "default": {
+      "posts": [],
+      "postNum": 0,
+      "tagNum": 0
+    }
+  }
+}

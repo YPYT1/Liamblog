@@ -1,0 +1,29 @@
+{
+  "id": "docusaurus/docusaurus-component",
+  "title": "自定义组件",
+  "description": "介绍如何自定义 docusaurus 组件",
+  "source": "@site/docs/docusaurus/component.md",
+  "sourceDirName": "docusaurus",
+  "slug": "/docusaurus-component",
+  "permalink": "/docs/docusaurus-component",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "docusaurus-component",
+    "slug": "/docusaurus-component",
+    "title": "自定义组件",
+    "authors": "kuizuo",
+    "description": "介绍如何自定义 docusaurus 组件"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "样式与页面",
+    "permalink": "/docs/docusaurus-style"
+  },
+  "next": {
+    "title": "插件",
+    "permalink": "/docs/docusaurus-plugin"
+  }
+}

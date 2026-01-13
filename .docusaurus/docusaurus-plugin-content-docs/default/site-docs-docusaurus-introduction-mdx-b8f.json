@@ -1,0 +1,29 @@
+{
+  "id": "docusaurus/docusaurus-guides",
+  "title": "Docusaurus 主题魔改",
+  "description": "这里是本人对 Docusaurus 的魔改指南，帮助使用者更好使用 Docusaurus。",
+  "source": "@site/docs/docusaurus/introduction.mdx",
+  "sourceDirName": "docusaurus",
+  "slug": "/docusaurus-guides",
+  "permalink": "/docs/docusaurus-guides",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "docusaurus-guides",
+    "slug": "/docusaurus-guides",
+    "title": "Docusaurus 主题魔改",
+    "authors": "kuizuo",
+    "keywords": [
+      "guides",
+      "docusaurus",
+      "docusaurus-guides"
+    ]
+  },
+  "sidebar": "docs",
+  "next": {
+    "title": "配置文件",
+    "permalink": "/docs/docusaurus-config"
+  }
+}

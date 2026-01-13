@@ -1,0 +1,24 @@
+{
+  "id": "docusaurus/docusaurus-deploy",
+  "title": "部署",
+  "description": "我之前使用 Vercel 一把梭，无需任何配置。这样我就只需要专注输出内容即可。这是我当时使用 Vercel 部署的文章 Vercel 部署个人博客",
+  "source": "@site/docs/docusaurus/deploy.md",
+  "sourceDirName": "docusaurus",
+  "slug": "/docusaurus-deploy",
+  "permalink": "/docs/docusaurus-deploy",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "docusaurus-deploy",
+    "slug": "/docusaurus-deploy",
+    "title": "部署",
+    "authors": "kuizuo"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "评论服务",
+    "permalink": "/docs/docusaurus-comment"
+  }
+}

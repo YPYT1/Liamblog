@@ -1,0 +1,28 @@
+{
+  "id": "docusaurus/docusaurus-plugin",
+  "title": "插件",
+  "description": "在 docusaurus.config.ts 下的 plugins，可以看到所有插件以及插件配置。如下所示",
+  "source": "@site/docs/docusaurus/plugin.md",
+  "sourceDirName": "docusaurus",
+  "slug": "/docusaurus-plugin",
+  "permalink": "/docs/docusaurus-plugin",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "docusaurus-plugin",
+    "slug": "/docusaurus-plugin",
+    "title": "插件",
+    "authors": "kuizuo"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "自定义组件",
+    "permalink": "/docs/docusaurus-component"
+  },
+  "next": {
+    "title": "搜索",
+    "permalink": "/docs/docusaurus-search"
+  }
+}

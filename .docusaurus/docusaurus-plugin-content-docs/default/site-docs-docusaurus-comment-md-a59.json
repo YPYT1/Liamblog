@@ -1,0 +1,28 @@
+{
+  "id": "docusaurus/docusaurus-comment",
+  "title": "评论服务",
+  "description": "这里推荐两种评论服务",
+  "source": "@site/docs/docusaurus/comment.md",
+  "sourceDirName": "docusaurus",
+  "slug": "/docusaurus-comment",
+  "permalink": "/docs/docusaurus-comment",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "docusaurus-comment",
+    "slug": "/docusaurus-comment",
+    "title": "评论服务",
+    "authors": "kuizuo"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "搜索",
+    "permalink": "/docs/docusaurus-search"
+  },
+  "next": {
+    "title": "部署",
+    "permalink": "/docs/docusaurus-deploy"
+  }
+}

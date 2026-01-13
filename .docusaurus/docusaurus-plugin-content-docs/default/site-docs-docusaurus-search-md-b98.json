@@ -1,0 +1,28 @@
+{
+  "id": "docusaurus/docusaurus-search",
+  "title": "搜索",
+  "description": "搜索 | Docusaurus",
+  "source": "@site/docs/docusaurus/search.md",
+  "sourceDirName": "docusaurus",
+  "slug": "/docusaurus-search",
+  "permalink": "/docs/docusaurus-search",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "docusaurus-search",
+    "slug": "/docusaurus-search",
+    "title": "搜索",
+    "authors": "kuizuo"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "插件",
+    "permalink": "/docs/docusaurus-plugin"
+  },
+  "next": {
+    "title": "评论服务",
+    "permalink": "/docs/docusaurus-comment"
+  }
+}

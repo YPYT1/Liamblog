@@ -1,0 +1,142 @@
+{
+  "/__docusaurus/debug-5ff": {
+    "__comp": "__comp---theme-debug-config-23-a-2ff",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    }
+  },
+  "/__docusaurus/debug/config-5ba": {
+    "__comp": "__comp---theme-debug-config-23-a-2ff",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    }
+  },
+  "/__docusaurus/debug/content-a2b": {
+    "__comp": "__comp---theme-debug-contentba-8-ce7",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    },
+    "__props": "__props---docusaurus-debug-content-3-c-0-be2"
+  },
+  "/__docusaurus/debug/globalData-c3c": {
+    "__comp": "__comp---theme-debug-global-dataede-0fa",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    }
+  },
+  "/__docusaurus/debug/metadata-156": {
+    "__comp": "__comp---theme-debug-site-metadata-68-e-3d4",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    }
+  },
+  "/__docusaurus/debug/registry-88c": {
+    "__comp": "__comp---theme-debug-registry-679-501",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    }
+  },
+  "/__docusaurus/debug/routes-000": {
+    "__comp": "__comp---theme-debug-routes-946-699",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    }
+  },
+  "/about-8b4": {
+    "__comp": "__comp---theme-mdx-page-1-f-3-b90",
+    "__context": {
+      "plugin": "plugin---abouta-74-d48"
+    },
+    "content": "content---aboutc-9-f-e93"
+  },
+  "/blog/authors-0b7": {
+    "__comp": "__comp---theme-blog-pages-blog-authors-list-page-621-70c",
+    "__context": {
+      "data": {
+        "blogMetadata": "blogMetadata---blog-authorsace-e7d"
+      },
+      "plugin": "plugin---blog-authors-369-d21"
+    },
+    "sidebar": "sidebar---blog-authors-814-16b",
+    "__props": "__props---blog-authorsef-8-44f"
+  },
+  "/friends/-c78": {
+    "__comp": "__comp---site-src-pages-friends-index-tsxe-6-c-e70",
+    "__context": {
+      "plugin": "plugin---abouta-74-d48"
+    },
+    "config": "config---friends-5-e-9-f85"
+  },
+  "/guestbook/-730": {
+    "__comp": "__comp---site-src-pages-guestbook-index-tsxd-00-471",
+    "__context": {
+      "plugin": "plugin---abouta-74-d48"
+    },
+    "config": "config---friends-5-e-9-f85"
+  },
+  "/project/-9b6": {
+    "__comp": "__comp---site-src-pages-project-index-tsxa-29-d6b",
+    "__context": {
+      "plugin": "plugin---abouta-74-d48"
+    },
+    "config": "config---friends-5-e-9-f85"
+  },
+  "/search-5de": {
+    "__comp": "__comp---theme-search-page-1-a-4-d6f",
+    "__context": {
+      "plugin": "plugin---searchc-14-0ea"
+    }
+  },
+  "/docs-d4d": {
+    "__comp": "__comp---theme-docs-root-5-e-9-0b6",
+    "__context": {
+      "plugin": "plugin---docsaba-d7c"
+    }
+  },
+  "/docs-89f": {
+    "__comp": "__comp---theme-doc-version-roota-7-b-5de",
+    "__props": "__props---docs-005-788"
+  },
+  "/docs-8c6": {
+    "__comp": "__comp---theme-doc-roota-94-67a"
+  },
+  "/docs/docusaurus-comment-2ca": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-docusaurus-commenta-59-6ef"
+  },
+  "/docs/docusaurus-component-226": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-docusaurus-componentc-5-b-974"
+  },
+  "/docs/docusaurus-config-c46": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-docusaurus-confige-5-b-568"
+  },
+  "/docs/docusaurus-deploy-a69": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-docusaurus-deployf-47-12c"
+  },
+  "/docs/docusaurus-guides-da1": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-docusaurus-guidesb-8-f-59a"
+  },
+  "/docs/docusaurus-plugin-b66": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-docusaurus-pluginf-6-a-964"
+  },
+  "/docs/docusaurus-search-de8": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-docusaurus-searchb-98-04d"
+  },
+  "/docs/docusaurus-style-7e8": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-docusaurus-style-38-f-3ab"
+  },
+  "/-e5f": {
+    "__comp": "__comp---site-src-pages-index-tsx-1-df-d3e",
+    "__context": {
+      "plugin": "plugin---abouta-74-d48"
+    },
+    "config": "config---friends-5-e-9-f85"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "id": "docusaurus/docusaurus-style",
+  "title": "样式与页面",
+  "description": "样式和布局",
+  "source": "@site/docs/docusaurus/style.md",
+  "sourceDirName": "docusaurus",
+  "slug": "/docusaurus-style",
+  "permalink": "/docs/docusaurus-style",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "docusaurus-style",
+    "slug": "/docusaurus-style",
+    "title": "样式与页面",
+    "authors": "kuizuo"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "配置文件",
+    "permalink": "/docs/docusaurus-config"
+  },
+  "next": {
+    "title": "自定义组件",
+    "permalink": "/docs/docusaurus-component"
+  }
+}

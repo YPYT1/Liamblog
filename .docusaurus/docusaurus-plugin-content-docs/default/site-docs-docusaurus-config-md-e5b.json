@@ -1,0 +1,28 @@
+{
+  "id": "docusaurus/docusaurus-config",
+  "title": "配置文件",
+  "description": "docusaurus.config.ts",
+  "source": "@site/docs/docusaurus/config.md",
+  "sourceDirName": "docusaurus",
+  "slug": "/docusaurus-config",
+  "permalink": "/docs/docusaurus-config",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "docusaurus-config",
+    "slug": "/docusaurus-config",
+    "title": "配置文件",
+    "authors": "kuizuo"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Docusaurus 主题魔改",
+    "permalink": "/docs/docusaurus-guides"
+  },
+  "next": {
+    "title": "样式与页面",
+    "permalink": "/docs/docusaurus-style"
+  }
+}
